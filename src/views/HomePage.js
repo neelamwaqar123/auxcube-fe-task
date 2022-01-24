@@ -6,28 +6,38 @@ import {
   Divider,
   Row,
   notification,
-  Button,
   Input,
+  Spin,
+  Result,
+  Button,
 } from 'antd';
 import { Fragment } from 'react';
 import axios from 'axios';
 import BookCard from "../components/Book/BookCard";
 import Cookies from "js-cookie";
-
-const { Text } = Typography;
+import moment from "moment";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+  const [recallApi, setRecallApi] = useState(false);
+
 
   useEffect(() =>{
     axios.get("https://61e9739a7bc0550017bc62ca.mockapi.io/books")
-      .then(response =>{
-        setBooks(response.data)
+      .then(response => {
+        setIsLoading(false);
+        let transformedBooks = response?.data?.map(book => book.publishedAt ? {...book, publishedAt: moment(book.publishedAt).fromNow()} : book);
+        setBooks(transformedBooks);
       })
-      .catch(error =>{
-        console.log(error)
+      .catch(error => {
+        setIsLoading(false);
+        setError(error);
       })
-  }, []);
+  }, [recallApi]);
+
+  console.log(books);
 
   const addToCart = (book) => {
     if (Cookies.get("cart") && JSON.parse(Cookies.get("cart")) !== []) {
@@ -59,17 +69,18 @@ const Home = () => {
           className="site-page-header"
           title="Books"
           ghost={false}
-          subTitle="This is a subtitle"
+          subTitle="Available Books"
           extra={[
-            <Input  placeholder="Search Book"/>,
+            <Input placeholder="Search Book"/>,
           ]}
         />
         <Divider />
         <Row>
           <Col span={24}>
             <Row gutter={[24, 24]} justify="center">
-              {
-                books ? books?.map((book) => (
+              { isLoading  ? <Spin tip="Books Loading...">
+              </Spin> :
+                books.length>1 ? books?.map((book) => (
                     <Col key={book.id} xs={18} sm={12} md={8} lg={6} xl={4} xxl={3}>
                         <BookCard
                           id={book.id}
@@ -85,10 +96,13 @@ const Home = () => {
                         />
                     </Col>
                   ))
-                  :
-                  <Col>
-                    <Text>No Books Exist Yet.</Text>
-                  </Col>
+                  : error &&
+                  <Result
+                    status="404"
+                    title="404 Not Found"
+                    subTitle="Something went wrong while fetching books."
+                    extra={<Button onClick={() => setRecallApi(!recallApi)} type="primary">Try Again</Button>}
+                  />
               }
             </Row>
           </Col>

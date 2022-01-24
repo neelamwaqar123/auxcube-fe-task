@@ -1,8 +1,6 @@
 import React from 'react';
-import Cookies from 'js-cookie';
-import {Button, Card, Collapse, Divider, Empty, PageHeader, Typography, Col, Row} from 'antd';
-import { Fragment } from 'react';
-import {Link} from "react-router-dom";
+import { Button, Card } from 'antd';
+import moment from "moment";
 
 const { Meta } = Card;
 
@@ -17,12 +15,16 @@ const BookCard = (props) => {
     addToCart,
   } = props;
 
+
+  console.log(moment(publishedAt).fromNow());
   return (
+    <>
       <Card
         className="blog-card"
         hoverable
-        style={{backgroundColor: "whitesmoke"}}
+        style={{backgroundColor:"whitesmoke", height:"100%" }}
         title={title}
+        border={false}
         actions={[
           <Button type="primary" onClick={addToCart}>Add To Cart</Button>
         ]}
@@ -46,8 +48,7 @@ const BookCard = (props) => {
           }
         />
       </Card>
+    </>
     )
-
 }
-
 export default BookCard;

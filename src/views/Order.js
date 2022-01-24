@@ -13,8 +13,6 @@ const Order = () => {
     Cookies.get('order') && setMyOrders(JSON.parse(Cookies.get('order')))
   }, [])
 
-  console.log(myOrders);
-
   return (
     <Fragment>
       <PageHeader
@@ -48,7 +46,7 @@ const Order = () => {
                     <h1>Quantity</h1>
                   </Col>
                 </Row>
-                {order.map(book => (
+                {order.slice(0, order.length-1).map(book => (
                   <>
                     <Row>
                       <Col span={4} className="cart-col">
@@ -61,10 +59,10 @@ const Order = () => {
                         {book.title}
                       </Col>
                       <Col span={4} className="cart-col" >
-                        {book.price}
+                        {book.price}$
                       </Col>
                       <Col span={4} className="cart-col" >
-                        {book.publishedAT}
+                        {book.publishedAt}
                       </Col>
                       <Col span={4} className="cart-col" >
                         {book.quantity}

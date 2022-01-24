@@ -10,9 +10,7 @@ import {
   Col,
 } from 'antd';
 import Cookies from 'js-cookie';
-import {Link} from "react-router-dom";
-
-const { Title, Text } = Typography;
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [myCart, setMyCart] = useState([]);
@@ -34,8 +32,6 @@ const Cart = () => {
     }
     setTotalCost(total);
   }, [myCart]);
-
-  console.log(totalCost);
 
   const placeOrder = () => {
     let cart = JSON.parse(Cookies.get('cart'));
@@ -88,7 +84,7 @@ const Cart = () => {
               <h1>Price</h1>
             </Col>
             <Col span={4} className="cart-col">
-              <h1>Published At</h1>
+              <h1>Published</h1>
             </Col>
             <Col span={4} className="cart-col">
               <h1>Quantity</h1>
@@ -111,7 +107,7 @@ const Cart = () => {
                       {cart.price}$
                     </Col>
                     <Col span={4} className="cart-col">
-                      {cart.publishedAT}
+                      {cart.publishedAt}
                     </Col>
                     <Col span={4} className="cart-col">
                       {cart.quantity}
