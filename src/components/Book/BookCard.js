@@ -15,8 +15,6 @@ const BookCard = (props) => {
     addToCart,
   } = props;
 
-
-  console.log(moment(publishedAt).fromNow());
   return (
     <>
       <Card

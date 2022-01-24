@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import {Col, PageHeader, Typography, Divider, Row, notification, Modal, Button, Card} from 'antd';
+import React from 'react';
+import { Button } from 'antd';
 import { Fragment } from 'react';
-import {Link} from "react-router-dom";
-
-const { Title } = Typography;
+import { Link } from "react-router-dom";
 
 const Thankyou = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  useEffect(() =>{
-    setModalVisible(true);
-  }, []);
-
   return (
     <Fragment>
       <div className="content">
@@ -28,6 +20,6 @@ const Thankyou = () => {
       </div>
     </Fragment>
   );
-}
+};
 
 export default Thankyou;

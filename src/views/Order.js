@@ -1,7 +1,16 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import { Typography, Collapse, PageHeader, Divider, Row, Col, Button, Empty } from 'antd';
+import React, { Fragment, useEffect, useState } from 'react';
+import {
+  Typography,
+  Collapse,
+  PageHeader,
+  Divider,
+  Row,
+  Col,
+  Button,
+  Empty
+} from 'antd';
 import Cookies from 'js-cookie';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const { Panel } = Collapse;
 const { Title } = Typography;
