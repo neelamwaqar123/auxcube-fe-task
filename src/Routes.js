@@ -5,6 +5,7 @@ import AppLayout from './components/common/Layout';
 import HomePage from "./views/HomePage";
 import Cart from "./views/Cart";
 import Order from "./views/Order";
+import Thank from "./views/Thankyou";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
             <Route exact path="/" element={<HomePage/>}/>
             <Route exact path="/cart" element={<Cart/>}/>
             <Route exact path="/orders" element={<Order/>}/>
+            <Route exact path="/thanks" element={<Thank/>}/>
           </Routes>
         </AppLayout>
       </BrowserRouter>

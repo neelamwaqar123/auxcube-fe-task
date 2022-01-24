@@ -1,39 +1,53 @@
 import React from 'react';
 import Cookies from 'js-cookie';
-import { List, Avatar, Button } from 'antd';
+import {Button, Card, Collapse, Divider, Empty, PageHeader, Typography, Col, Row} from 'antd';
+import { Fragment } from 'react';
+import {Link} from "react-router-dom";
+
+const { Meta } = Card;
 
 const BookCard = (props) => {
-  const { books } = props;
-
-  const addToCart = (book) => {
-    if (Cookies.get("cart")) {
-      let cart = JSON.parse(Cookies.get('cart'))
-      cart = [...cart, book]
-      Cookies.set('cart', JSON.stringify(cart))
-    } else {
-      Cookies.set('cart', JSON.stringify([book]))
-    }
-    console.log(Cookies.get('cart'))
-  };
+  const {
+    id,
+    publishedAt,
+    author,
+    genre,
+    price,
+    title,
+    addToCart,
+  } = props;
 
   return (
-   <>
-     <List
-       itemLayout="horizontal"
-       dataSource={books}
-       renderItem={book => (
-         <List.Item
-           actions={[<Button onClick={()=>addToCart(book)}>Add To Cart</Button>]}
-         >
-           <List.Item.Meta
-             avatar={<Avatar src="https://joeschmoe.io/api/v1/random"/>}
-             title={book.title}
-             description="2years ago"
-           />
-         </List.Item>
-       )}
-     />
-   </>
-  );
+      <Card
+        className="blog-card"
+        hoverable
+        style={{backgroundColor: "whitesmoke"}}
+        title={title}
+        actions={[
+          <Button type="primary" onClick={addToCart}>Add To Cart</Button>
+        ]}
+      >
+        <Meta
+          description={
+            <>
+              <p>
+                <b>Written By</b>: <span> {author} </span>
+              </p>
+              <p>
+                <b>Genre</b>: <span> {genre} </span>
+              </p>
+              <p>
+                <b>Published</b>: <span> {publishedAt} </span>
+              </p>
+              <p>
+                <b>Price</b>: <span> {price}$ </span>
+              </p>
+            </>
+          }
+        />
+      </Card>
+    )
+
 }
+
 export default BookCard;

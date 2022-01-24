@@ -1,0 +1,22 @@
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  h1 {
+    font-size: 80px;
+    font-family: Cursive;
+    color: purple;
+  }
+  p {
+    font-size: 40px;
+    margin-left:60px;
+    color: black;
+  }
+  .button{
+    margin-left: 230px;
+    margin-bottom: 40px;
+  }
+}

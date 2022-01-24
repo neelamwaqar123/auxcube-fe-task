@@ -1,46 +1,46 @@
 import React from 'react';
-import { Layout, Menu, } from 'antd';
+import { Layout, Menu, Image } from 'antd';
 import { Link } from 'react-router-dom';
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import Logo from "../../assets/result.svg";
 
 const { Header, Footer, Content, Sider } = Layout;
 
 const AppLayout = ({children}) => {
   return (
     <>
-      <Layout tclassName="app-layout" style={{ }}>
-        <Header style={{ color: 'yellow' }}>
-          Librarium
+      <Layout className="app-layout">
+        <Header className="header">
+          <Link to="/">
+            <div className="header-logo" >
+              <Image
+                preview={false}
+                src={Logo}
+                alt="Auxcube Logo" />
+            </div>
+          </Link>
+          <Menu className="header-links" theme="dark" mode="horizontal">
+            <Menu.Item>
+              <Link to="/" >
+                Home
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/cart" >
+                My Cart
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link to="/orders" >
+                My Orders
+              </Link>
+            </Menu.Item>
+          </Menu>
         </Header>
-        <Layout>
-          <Sider theme="light" trigger={null} collapsible >
-            <div className="logo" />
-            <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item  key= "1" icon={<UserOutlined />}>
-                <Link to="/" >
-                  Home
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                <Link to="/cart" >
-                  Cart
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="3" icon={<UploadOutlined />}>
-                <Link to="/orders" >
-                  Orders
-                </Link>
-              </Menu.Item>
-            </Menu>
-          </Sider>
-          <Content style={{}}>
+        <Content className="site-layout">
+          <div className="site-layout-background">
             {children}
-          </Content>
-        </Layout>
+          </div>
+        </Content>
         <Footer className="footer">Auxcube - Front End Task</Footer>
       </Layout>
     </>
@@ -48,3 +48,4 @@ const AppLayout = ({children}) => {
 }
 
 export default AppLayout;
+
