@@ -10,11 +10,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-//screens
-
 
 //components
 @import "./components/layout.scss";
 @import "./components/thankyou.scss";
 @import "./components/order.scss";
 @import "./components/cart.scss";
+@import "./components/bookcard.scss";
+@import "./components/shoppingmodal.scss";

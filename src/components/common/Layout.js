@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment }  from 'react';
 import { Layout, Menu, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import Logo from "../../assets/result.svg";
 
-const { Header, Footer, Content, Sider } = Layout;
+const { Header, Footer, Content } = Layout;
 
 const AppLayout = ({children}) => {
   return (
-    <>
+    <Fragment>
       <Layout className="app-layout">
         <Header className="header">
           <Link to="/">
@@ -19,17 +19,17 @@ const AppLayout = ({children}) => {
             </div>
           </Link>
           <Menu className="header-links" theme="dark" mode="horizontal">
-            <Menu.Item>
+            <Menu.Item key={1}>
               <Link to="/" >
                 Home
               </Link>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key={2}>
               <Link to="/cart" >
                 My Cart
               </Link>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key={3}>
               <Link to="/orders" >
                 My Orders
               </Link>
@@ -43,7 +43,7 @@ const AppLayout = ({children}) => {
         </Content>
         <Footer className="footer">Auxcube - Front End Task</Footer>
       </Layout>
-    </>
+    </Fragment>
   );
 }
 

@@ -11,6 +11,7 @@ import {
 } from 'antd';
 import Cookies from 'js-cookie';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 const { Panel } = Collapse;
 const { Title } = Typography;
@@ -30,9 +31,9 @@ const Order = () => {
       />
       <Divider />
       {myOrders.length ? myOrders.map((order, id) =>
-        <Fragment>
+        <Fragment key={id}>
           <Title level={4}>{`Order Number ${id+1}`}</Title>
-          <Collapse  style={{marginBottom:"10px"}} key={id}>
+          <Collapse className='collapse' key={id}>
             <Panel header={"This is Order#" + id+1 + ". Click to view details of your order."} key={id}>
               <div className="cart">
                 <Row>
@@ -49,15 +50,15 @@ const Order = () => {
                     <h1>Price</h1>
                   </Col>
                   <Col span={4} className="cart-col">
-                    <h1>Published At</h1>
+                    <h1>Published</h1>
                   </Col>
                   <Col span={4} className="cart-col" >
                     <h1>Quantity</h1>
                   </Col>
                 </Row>
-                {order.slice(0, order.length-1).map(book => (
-                  <>
-                    <Row>
+                {order.slice(0, order.length-1).map((book, id) => (
+                  <Fragment key={id}>
+                    <Row justify="center">
                       <Col span={4} className="cart-col">
                         {book.title}
                       </Col>
@@ -71,13 +72,13 @@ const Order = () => {
                         {book.price}$
                       </Col>
                       <Col span={4} className="cart-col" >
-                        {book.publishedAt}
+                        {moment(book.publishedAt).fromNow()}
                       </Col>
                       <Col span={4} className="cart-col" >
                         {book.quantity}
                       </Col>
                     </Row>
-                  </>
+                  </Fragment>
               ))
               }
               </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { Button, Card } from 'antd';
 import moment from "moment";
 
@@ -6,7 +6,6 @@ const { Meta } = Card;
 
 const BookCard = (props) => {
   const {
-    id,
     publishedAt,
     author,
     genre,
@@ -16,20 +15,18 @@ const BookCard = (props) => {
   } = props;
 
   return (
-    <>
+    <Fragment>
       <Card
-        className="blog-card"
+        className="book-card"
         hoverable
-        style={{backgroundColor:"whitesmoke", height:"100%" }}
         title={title}
-        border={false}
         actions={[
-          <Button type="primary" onClick={addToCart}>Add To Cart</Button>
+          <Button type="primary" className='add-to-cart' onClick={addToCart}>Add To Cart</Button>
         ]}
       >
         <Meta
           description={
-            <>
+            <Fragment>
               <p>
                 <b>Written By</b>: <span> {author} </span>
               </p>
@@ -37,16 +34,16 @@ const BookCard = (props) => {
                 <b>Genre</b>: <span> {genre} </span>
               </p>
               <p>
-                <b>Published</b>: <span> {publishedAt} </span>
+                <b>Published</b>: <span> {moment(publishedAt).fromNow()} </span>
               </p>
               <p>
                 <b>Price</b>: <span> {price}$ </span>
               </p>
-            </>
+            </Fragment>
           }
         />
       </Card>
-    </>
+    </Fragment>
     )
 }
 export default BookCard;

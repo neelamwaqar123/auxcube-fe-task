@@ -11,11 +11,8 @@
     }
   }
   .header-logo {
-    display: flex;
-    height: 64px;
-    padding: 10px 0px;
     img {
-      width: 100%;
+      width: 50%;
       height: 100%;
     }
   }
@@ -31,6 +28,9 @@
         padding: 0px 24px;
       }
     }
+  }
+  .collapse {
+    margin-bottom: 10px;
   }
   .footer {
     text-align: center;

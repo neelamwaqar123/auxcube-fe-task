@@ -1,0 +1,10 @@
+.book-card {
+  background-color: whitesmoke;
+  min-height: 350px;
+
+  .ant-card-actions {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}

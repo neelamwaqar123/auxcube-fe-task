@@ -3,13 +3,13 @@ import {
   Button,
   Divider,
   Empty,
-  notification,
   PageHeader,
-  Typography,
   Row,
   Col,
+  message,
 } from 'antd';
 import Cookies from 'js-cookie';
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
@@ -19,8 +19,6 @@ const Cart = () => {
   useEffect(() => {
     Cookies.get('cart') && setMyCart(JSON.parse(Cookies.get("cart")));
   }, []);
-
-  console.log(myCart)
 
   useEffect(() => {
     Cookies.set("cart", JSON.stringify(myCart));
@@ -49,18 +47,10 @@ const Cart = () => {
 
   const deleteFromCart = (cart) => {
     if (cart.quantity > 1) {
-      setMyCart(myCart.map(mc => mc.id == cart.id ? {...mc, quantity: mc.quantity-1} : mc));
+      setMyCart(myCart.map(mc => mc.id === cart.id ? { ...mc, quantity: mc.quantity - 1 } : mc));
     } else {
       setMyCart(myCart.filter(mc => mc.id !== cart.id));
     }
-  };
-
-  const openNotification = placement => {
-    notification.info({
-      message: `Order Information`,
-      description: 'Your Order has been placed',
-      placement,
-    });
   };
 
   return (
@@ -71,7 +61,7 @@ const Cart = () => {
       />
       <Divider />
       { myCart.length ? (
-        <>
+        <Fragment>
         <div className="cart">
           <Row justify="center">
             <Col span={4} className="cart-col">
@@ -95,7 +85,7 @@ const Cart = () => {
           </Row>
           <div>
             {myCart.length && myCart.map((cart, id) =>
-                <>
+                <Fragment key={id}>
                   <Row justify="center">
                     <Col span={4} className="cart-col">
                       {cart.title}
@@ -107,7 +97,7 @@ const Cart = () => {
                       {cart.price}$
                     </Col>
                     <Col span={4} className="cart-col">
-                      {cart.publishedAt}
+                      {moment(cart.publishedAt).fromNow()}
                     </Col>
                     <Col span={4} className="cart-col">
                       {cart.quantity}
@@ -117,32 +107,45 @@ const Cart = () => {
                     </Col>
                   </Row>
                   <Divider/>
-                </>
+                </Fragment>
               )}
         </div>
       </div>
-      <Row justify="end">
-        <Col span={5} className="cart-col">
-          <b>Total Cost</b>: {totalCost}$
+      <Row className='place-order'>
+        <Col>
+          <Row >
+            <Col>
+              <b>Total Cost</b>: {totalCost}$
+            </Col>
+          </Row>
+          <Row >
+            <Col>
+              <Link to="/thanks">
+                <Button
+                  className="order"
+                  type='primary'
+                  onClick={() => {
+                    placeOrder();
+                    message.success({
+                      type: 'success',
+                      content: "Your Order has been placed",
+                      duration: 1,
+                    });
+                  }}
+                >Place Order</Button>
+              </Link>
+            </Col>
+          </Row>
         </Col>
       </Row>
-      <Link to="/thanks">
-        <Button
-          className="order"
-          onClick={() => {
-            placeOrder();
-            openNotification('bottomRight');
-          }}
-        >Place Order</Button>
-      </Link>
-        </>
+        </Fragment>
       ) :
         <Empty
         image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
         imageStyle={{
         height: 60,
       }}
-        description="Your Cart is Empty. Click on the button to Add Books to Cart."
+        description="Your Cart is Empty. Click on the button to continue shopping."
         >
         <Link to="/">
         <Button type="primary">Go To Home</Button>
