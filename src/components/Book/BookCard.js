@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { Button, Card } from 'antd';
 import moment from "moment";
 
@@ -22,8 +22,7 @@ const BookCard = (props) => {
         title={title}
         actions={[
           <Button type="primary" className='add-to-cart' onClick={addToCart}>Add To Cart</Button>
-        ]}
-      >
+        ]}>
         <Meta
           description={
             <Fragment>
@@ -44,6 +43,6 @@ const BookCard = (props) => {
         />
       </Card>
     </Fragment>
-    )
+  )
 }
 export default BookCard;

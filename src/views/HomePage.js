@@ -13,10 +13,18 @@ import {
 import { Fragment } from 'react';
 import axios from 'axios';
 import BookCard from "../components/Book/BookCard";
-import ShoppingModal from "../components/HomePage/ShoppingModal"
+import ShoppingModal from "../components/HomePage/ShoppingModal";
 import Cookies from "js-cookie";
 
 const Home = () => {
+  const [modalVisible, setModalVisible] = useState(false)
+  const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+  const [recallApi, setRecallApi] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [showBooks, setShowBooks] = useState(false);
+
   const debounce = (func, wait) => {
     let timeout;
     return function(...args) {
@@ -39,15 +47,15 @@ const Home = () => {
   const onBookSearch = (text) => {
     Cookies.set("searchText", text);
     if (text === "") {
-      setIsLoading(true)
+      setIsLoading(true);
       axios.get("https://61e9739a7bc0550017bc62ca.mockapi.io/books")
         .then(response => {
           setIsLoading(false);
           setBooks(response.data);
         })
         .catch(error => {
+          setBooks([]);
           setIsLoading(false);
-          setError(error);
           message.error({
             type: 'error',
             content: "Something went wrong while Fetching Books",
@@ -67,6 +75,7 @@ const Home = () => {
           setBooks(response.data);
         })
         .catch(error => {
+          setBooks([]);
           message.error({
             type: 'error',
             content: "Something went wrong while Searching Books",
@@ -76,14 +85,6 @@ const Home = () => {
     }
   };
 
-  const [modalVisible, setModalVisible] = useState(false)
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSearchLoading, setIsSearchLoading] = useState(false);
-  const [error, setError] = useState();
-  const [recallApi, setRecallApi] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [showBooks, setShowBooks] = useState(false);
   const debounceOnChange = React.useCallback(debounce(onBookSearch, 1000), []);
 
   useEffect(() => {
@@ -96,6 +97,7 @@ const Home = () => {
           setBooks(response.data);
         })
         .catch(error => {
+          setBooks([]);
           setIsSearchLoading(false);
           message.error({
             type: 'error',
@@ -113,8 +115,8 @@ const Home = () => {
           setBooks(response.data);
         })
         .catch(error => {
+          setBooks([]);
           setIsLoading(false);
-          setError(error);
           message.error({
             type: 'error',
             content: "Something went wrong while Fetching Books",

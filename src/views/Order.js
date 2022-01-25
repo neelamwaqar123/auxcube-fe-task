@@ -101,11 +101,11 @@ const Order = () => {
           }}
           description="No Orders are placed yet."
         >
-        <Link to="/cart" >
-          <Button type="primary">Order Now</Button>
-        </Link>
-        </Empty>
-      }
+          <Link to="/cart" >
+            <Button type="primary">Order Now</Button>
+          </Link>
+          </Empty>
+       }
     </Fragment>
   );
 }

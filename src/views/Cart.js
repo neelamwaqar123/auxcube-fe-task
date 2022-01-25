@@ -26,8 +26,8 @@ const Cart = () => {
     for (var i = 0 ; i <= myCart.length; i++) {
       if (myCart[i]?.price && myCart[i]?.quantity) {
         total = total + myCart[i]?.price * myCart[i]?.quantity;
-      }
-    }
+      };
+    };
     setTotalCost(total);
   }, [myCart]);
 
@@ -40,7 +40,7 @@ const Cart = () => {
     } else {
       let order = [[...cart, {total: totalCost}]];
       Cookies.set('order', JSON.stringify(order));
-    }
+    };
     Cookies.set('cart', []);
     setMyCart([]);
   };
@@ -50,7 +50,7 @@ const Cart = () => {
       setMyCart(myCart.map(mc => mc.id === cart.id ? { ...mc, quantity: mc.quantity - 1 } : mc));
     } else {
       setMyCart(myCart.filter(mc => mc.id !== cart.id));
-    }
+    };
   };
 
   return (
@@ -62,91 +62,89 @@ const Cart = () => {
       <Divider />
       { myCart.length ? (
         <Fragment>
-        <div className="cart">
-          <Row justify="center">
-            <Col span={4} className="cart-col">
-              <h1>Book Name</h1>
-            </Col>
-            <Col span={4} className="cart-col">
-              <h1>Author Name</h1>
-            </Col>
-            <Col span={4} className="cart-col">
-              <h1>Price</h1>
-            </Col>
-            <Col span={4} className="cart-col">
-              <h1>Published</h1>
-            </Col>
-            <Col span={4} className="cart-col">
-              <h1>Quantity</h1>
-            </Col>
-            <Col span={4} className="cart-col">
-              <h1>Action</h1>
-            </Col>
-          </Row>
-          <div>
-            {myCart.length && myCart.map((cart, id) =>
-                <Fragment key={id}>
-                  <Row justify="center">
-                    <Col span={4} className="cart-col">
-                      {cart.title}
-                    </Col>
-                    <Col span={4} className="cart-col">
-                      {cart.author}
-                    </Col>
-                    <Col span={4} className="cart-col">
-                      {cart.price}$
-                    </Col>
-                    <Col span={4} className="cart-col">
-                      {moment(cart.publishedAt).fromNow()}
-                    </Col>
-                    <Col span={4} className="cart-col">
-                      {cart.quantity}
-                    </Col>
-                    <Col span={4} className="cart-col">
-                      <Button type="danger" onClick={() => deleteFromCart(cart)}>Remove From Cart</Button>
-                    </Col>
-                  </Row>
+          <div className="cart">
+            <Row justify="center">
+              <Col span={4} className="cart-col">
+                <h1>Book Name</h1>
+              </Col>
+              <Col span={4} className="cart-col">
+                <h1>Author Name</h1>
+              </Col>
+              <Col span={4} className="cart-col">
+                <h1>Price</h1>
+              </Col>
+              <Col span={4} className="cart-col">
+                <h1>Published</h1>
+              </Col>
+              <Col span={4} className="cart-col">
+                <h1>Quantity</h1>
+              </Col>
+              <Col span={4} className="cart-col">
+                <h1>Action</h1>
+              </Col>
+            </Row>
+            <div>
+              {myCart.length && myCart.map((cart, id) =>
+                  <Fragment key={id}>
+                    <Row justify="center">
+                      <Col span={4} className="cart-col">
+                        {cart.title}
+                      </Col>
+                      <Col span={4} className="cart-col">
+                        {cart.author}
+                      </Col>
+                      <Col span={4} className="cart-col">
+                        {cart.price}$
+                      </Col>
+                      <Col span={4} className="cart-col">
+                        {moment(cart.publishedAt).fromNow()}
+                      </Col>
+                      <Col span={4} className="cart-col">
+                        {cart.quantity}
+                      </Col>
+                      <Col span={4} className="cart-col">
+                        <Button type="danger" onClick={() => deleteFromCart(cart)}>Remove From Cart</Button>
+                      </Col>
+                    </Row>
                   <Divider/>
                 </Fragment>
               )}
-        </div>
-      </div>
-      <Row className='place-order'>
-        <Col>
-          <Row >
+            </div>
+          </div>
+          <Row className='place-order'>
             <Col>
-              <b>Total Cost</b>: {totalCost}$
+              <Row >
+                <Col>
+                  <b>Total Cost</b>: {totalCost}$
+                </Col>
+              </Row>
+              <Row >
+                <Col>
+                  <Link to="/thanks">
+                    <Button
+                      className="order"
+                      type='primary'
+                      onClick={() => {
+                        placeOrder();
+                        message.success({
+                          type: 'success',
+                          content: "Your Order has been placed",
+                          duration: 1,
+                        });
+                      }}
+                    >Place Order</Button>
+                  </Link>
+                </Col>
+              </Row>
             </Col>
-          </Row>
-          <Row >
-            <Col>
-              <Link to="/thanks">
-                <Button
-                  className="order"
-                  type='primary'
-                  onClick={() => {
-                    placeOrder();
-                    message.success({
-                      type: 'success',
-                      content: "Your Order has been placed",
-                      duration: 1,
-                    });
-                  }}
-                >Place Order</Button>
-              </Link>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-        </Fragment>
-      ) :
+         </Row>
+        </Fragment>) :
         <Empty
-        image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-        imageStyle={{
-        height: 60,
-      }}
-        description="Your Cart is Empty. Click on the button to continue shopping."
-        >
+          image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+          imageStyle={{
+          height: 60,
+          }}
+        description="Your Cart is Empty. Click on the button to continue shopping.">
         <Link to="/">
         <Button type="primary">Go To Home</Button>
         </Link>
